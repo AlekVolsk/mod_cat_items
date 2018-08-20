@@ -14,6 +14,6 @@ This module displays a list of links to articles that are associated with output
 
 **Внимание!** Модуль работает только на странице вывода материала!
 ---
-Joomla 3.0+
+Joomla 3.4+
 
 PHP 5.6+
