@@ -13,6 +13,8 @@ abstract class ModCatItemsHelper
 	{
 		$app = JFactory::getApplication();
 
+		$related = [];
+		
 		$option = $app->input->get( 'option' );
 		$view = $app->input->get( 'view' );
 		$catid = $app->input->get( 'catid' );
@@ -20,7 +22,7 @@ abstract class ModCatItemsHelper
 		$temp = $app->input->getString( 'id' );
 		$temp = explode( ':', $temp );
 		$id = $temp[0];
-
+		
 		if ( $option == 'com_content' && $view == 'article' && $id )
 		{
 			$user = JFactory::getUser();
@@ -30,7 +32,6 @@ abstract class ModCatItemsHelper
 
 			$nullDate = $db->getNullDate();
 			$now = $date->toSql();
-			$related = [];
 			$query = $db->getQuery( true );
 	
 			$maximum = ( int ) $params->get( 'maximum', 5 );
@@ -85,7 +86,7 @@ abstract class ModCatItemsHelper
 				return;
 			}
 
-			if ( count( $temp ) )
+			if ( isset( $temp ) && count( $temp ) )
 			{
 				foreach ( $temp as $row )
 				{
