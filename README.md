@@ -16,6 +16,6 @@ This module displays a list of links to articles that are associated with output
 
 ---
 
-Joomla 3.4+
+Joomla 3.7+
 
 PHP 5.6+

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="module" version="3.4" client="site" method="upgrade">
+<extension type="module" version="3.7" client="site" method="upgrade">
 	<name>mod_cat_items</name>
 	<author>Aleksey A. Morozov (AlekVolsk)</author>
 	<copyright>(C) 2016 Aleksey A. Morozov. All rights reserved.</copyright>
 	<license>GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt</license>
-	<version>1.0.0</version>
-	<creationDate>March 2016</creationDate>
+	<version>1.1.0</version>
+	<creationDate>October 2018</creationDate>
 	<description>MOD_CAT_ITEMS_XML_DESCRIPTION</description>
 	<files>
 		<filename module="mod_cat_items">mod_cat_items.php</filename>
@@ -18,6 +18,14 @@
 		<language tag="ru-RU">ru-RU.mod_cat_items.ini</language>
 		<language tag="ru-RU">ru-RU.mod_cat_items.sys.ini</language>
 	</languages>
+	<administrator>
+		<languages>
+			<language tag="en-GB">en-GB.mod_cat_items.ini</language>
+			<language tag="en-GB">en-GB.mod_cat_items.sys.ini</language>
+			<language tag="ru-RU">ru-RU.mod_cat_items.ini</language>
+			<language tag="ru-RU">ru-RU.mod_cat_items.sys.ini</language>
+		</languages>
+	</administrator>
 	<config>
 		<fields name="params">
 			<fieldset name="basic">

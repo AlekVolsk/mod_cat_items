@@ -1,17 +1,22 @@
 <?php defined( '_JEXEC' ) or die;
 /*
  * @package     mod_cat_items
- * @copyright   Copyright ( C ) 2016 Aleksey A. Morozov ( AlekVolsk ). All rights reserved.
+ * @copyright   Copyright (C) 2018 Aleksey A. Morozov ( AlekVolsk ). All rights reserved.
  * @license     GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt
  */
  
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Language\Multilanguage;
+use Joomla\CMS\Router\Route;
+
 require_once JPATH_SITE . '/components/com_content/helpers/route.php';
 
 abstract class ModCatItemsHelper
 {
 	public static function getList( &$params )
 	{
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		$related = [];
 		
@@ -25,10 +30,10 @@ abstract class ModCatItemsHelper
 		
 		if ( $option == 'com_content' && $view == 'article' && $id )
 		{
-			$user = JFactory::getUser();
+			$user = Factory::getUser();
 			$groups = implode( ',', $user->getAuthorisedViewLevels() );
-			$date = JFactory::getDate();
-			$db = JFactory::getDbo();
+			$date = Factory::getDate();
+			$db = Factory::getDbo();
 
 			$nullDate = $db->getNullDate();
 			$now = $date->toSql();
@@ -68,9 +73,9 @@ abstract class ModCatItemsHelper
 				->where( '(a.publish_up = ' . $db->quote( $nullDate ) . ' OR a.publish_up <= ' . $db->quote( $now ) . ')' )
 				->where( '(a.publish_down = ' . $db->quote( $nullDate ) . ' OR a.publish_down >= ' . $db->quote( $now ) . ')' );
 
-			if ( JLanguageMultilang::isEnabled() )
+			if ( Multilanguage::isEnabled() )
 			{
-				$query->where( 'a.language in (' . $db->quote( JFactory::getLanguage()->getTag() ) . ',' . $db->quote( '*' ) . ')' );
+				$query->where( 'a.language in (' . $db->quote( Factory::getLanguage()->getTag() ) . ',' . $db->quote( '*' ) . ')' );
 			}
 				
 			$query->order( 'a.hits desc,a.id desc' );
@@ -82,7 +87,7 @@ abstract class ModCatItemsHelper
 			}
 			catch ( RuntimeException $e )
 			{
-				JFactory::getApplication()->enqueueMessage( JText::_( 'JERROR_AN_ERROR_HAS_OCCURRED' ), 'error' );
+				Factory::getApplication()->enqueueMessage( Text::_( 'JERROR_AN_ERROR_HAS_OCCURRED' ), 'error' );
 				return;
 			}
 
@@ -92,7 +97,7 @@ abstract class ModCatItemsHelper
 				{
 					if ( $row->cat_state == 1 )
 					{
-						$row->route = JRoute::_( ContentHelperRoute::getArticleRoute( $row->slug, $row->catid, $row->language ) );
+						$row->route = Route::_( ContentHelperRoute::getArticleRoute( $row->slug, $row->catid, $row->language ) );
 						$row->images = json_decode( $row->images );
 						$related[] = $row;
 					}
